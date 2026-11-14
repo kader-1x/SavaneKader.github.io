@@ -3,13 +3,14 @@ PORTFOLIO BTS SIO SISR
 Ouvrir : double-clic sur index.html (internet requis pour GSAP et les polices).
 
 MODIFIER LE CONTENU
-  Tout est dans content.js (identité, parcours, projets, veille).
+  Tout est dans content.js (identité, parcours, projets, certifications, veille).
 
-AJOUTER UN PROJET SANS TOUCHER AU CODE
+ADMINISTRATION DES PROJETS (ajouter, supprimer, restaurer)
   1. Ouvrez le site avec #admin à la fin de l’adresse (ex. .../index.html#admin)
-  2. Remplissez le formulaire, cliquez sur « Ajouter »
-  3. Cliquez sur « Télécharger content.js » et remplacez l’ancien fichier
-  4. Envoyez-le sur GitHub : le projet est en ligne pour tout le monde
+  2. Ajoutez un projet avec le formulaire, ou cliquez sur « Supprimer » à côté d’un projet.
+  3. Les changements s’affichent tout de suite, mais seulement sur votre appareil.
+  4. Pour les publier : « Télécharger content.js », remplacez l’ancien fichier, envoyez-le sur GitHub.
+  « Annuler mes modifications » remet le site tel que dans content.js.
+  Images : mettez-les dans le dossier images/ et indiquez images/nom.png dans le formulaire.
 
 METTRE EN LIGNE (gratuit) : dépôt GitHub > Settings > Pages > branche main.
-IMAGES : mettez-les dans un dossier images/ et indiquez images/nom.png dans le formulaire.

@@ -19,7 +19,7 @@ window.PORTFOLIO = {
     photo: "images/photo.jpg",
     paragraphs: [
       "Étudiant en BTS SIO option SISR à l’IEF2I de Vincennes, je me forme à l’administration des systèmes, à la conception de réseaux et à la cybersécurité. Ce qui me motive : comprendre comment tout s’articule, du câble au service rendu à l’utilisateur.",
-      "Au fil de mes projets de formation (VLAN, Active Directory, GLPI, virtualisation avec Proxmox), j’ai appris à travailler avec méthode : analyser un besoin, tester en laboratoire, documenter chaque étape et vérifier que la solution tient dans la durée.",
+      "Au fil de mes projets de formation (VLAN et OSPF, Active Directory, GLPI), j’ai appris à travailler avec méthode : analyser un besoin, tester en laboratoire, documenter chaque étape et vérifier que la solution tient dans la durée.",
       "Je recherche une alternance à partir de septembre 2027, en Île-de-France, en administration systèmes et réseaux, infrastructure, cybersécurité ou support informatique. Elle me permettra de poursuivre en licence professionnelle tout en mettant mes acquis en pratique, au sein d’une équipe qui me transmettra son expérience et à qui j’apporterai ma rigueur et mon envie d’apprendre."
     ],
     values: [
@@ -37,12 +37,34 @@ window.PORTFOLIO = {
     { date: "2025", title: "Baccalauréat", logo: "images/logo-college.jpg",
       text: "Obtenu au Collège privé La Vision Future, en Côte d’Ivoire." }
   ],
+  certifications: [
+    { title: "Introduction to Cybersecurity", issuer: "Cisco Networking Academy", date: "12 janvier 2026", status: "Obtenue",
+      text: "Certificat de réussite du cours, niveau étudiant. L’étudiant a démontré sa capacité à :",
+      skills: [
+        "expliquer les bases de la sécurité en ligne, ce qu’est la cybersécurité et son impact potentiel ;",
+        "expliquer les menaces, attaques et vulnérabilités les plus courantes ;",
+        "expliquer comment se protéger en ligne ;",
+        "expliquer comment les organisations protègent leurs opérations contre ces attaques ;",
+        "explorer les différents métiers de la cybersécurité."
+      ],
+      image: "images/cert-cisco-cybersecurity.jpg", file: "docs/Certification-Cisco-Introduction-to-Cybersecurity.pdf" },
+    { title: "SecNumacadémie, MOOC de l’ANSSI", issuer: "SecNumacadémie (ANSSI)", date: "15 janvier 2026", status: "Attestation de suivi",
+      text: "Quatre modules du MOOC suivis avec succès, avec les scores suivants aux évaluations :",
+      skills: [
+        "Panorama de la SSI : 92 %",
+        "Sécurité de l’authentification : 88 %",
+        "Sécurité sur Internet : 88 %",
+        "Sécurité du poste de travail et nomadisme : 96 %"
+      ],
+      image: "images/cert-secnumacademie.jpg", file: "docs/Attestation-SecNumacademie-ANSSI.pdf" },
+    { title: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", date: "", status: "En préparation",
+      text: "Certification d’initiation au cloud AWS, que je prépare actuellement.", skills: [], image: "", file: "" }
+  ],
   skills: [
     { title: "Réseaux", text: "VLAN et trunk, routage inter-VLAN, DHCP, DNS, Cisco IOS, Packet Tracer" },
     { title: "Systèmes", text: "Linux (Debian), Windows Server, Active Directory, administration systèmes" },
     { title: "Virtualisation", text: "Proxmox, Docker, bases de Kubernetes" },
-    { title: "Outils et sécurité", text: "pfSense, GLPI, bonnes pratiques de l’ANSSI" },
-    { title: "Certifications", text: "Cisco, SecNumAcadémie (ANSSI), AWS Cloud Practitioner en préparation" }
+    { title: "Outils et sécurité", text: "pfSense, GLPI, bonnes pratiques de l’ANSSI" }
   ],
   projects: [
     { id: "vlan", title: "Réseau segmenté : VLAN, inter-VLAN, OSPF et DHCP", year: "2026", category: "Réseau",
@@ -72,7 +94,7 @@ window.PORTFOLIO = {
       summary: "Un domaine Windows pour centraliser utilisateurs et postes.",
       context: "Mettre en place un domaine Windows qui centralise la gestion des utilisateurs et des postes d’une infrastructure.",
       work: "Installation et configuration d’Active Directory, création du domaine, gestion des utilisateurs et intégration des postes clients au domaine.",
-      tags: ["Windows Server", "Active Directory", "DNS", "B2.2 Installer et déployer", "B2.3 Exploiter"], image: "", link: "" },
+      tags: ["Windows Server", "Active Directory", "DNS", "B2.2 Installer et déployer", "B2.3 Exploiter"], image: "images/ad-logo.png", contain: true, link: "" },
     { id: "glpi-debian", title: "GLPI et synchronisation LDAP avec Active Directory", year: "2026", category: "Système",
       summary: "GLPI interroge l’annuaire Active Directory en LDAP pour importer les comptes utilisateurs.",
       context: "Mettre en place une liaison entre un domaine Active Directory et GLPI afin que GLPI utilise l’annuaire LDAP pour rechercher et importer les comptes utilisateurs, et vérifier la communication entre GLPI et le contrôleur de domaine.",
@@ -100,19 +122,13 @@ window.PORTFOLIO = {
           shots: [ { src: "images/glpi-ldap-09.jpg", caption: "Fonctions d’importation et de synchronisation LDAP" }, { src: "images/glpi-ldap-10.jpg", caption: "Utilisateurs présents dans GLPI après synchronisation" } ] },
         { title: "Résultat", text: "La liaison entre Active Directory et GLPI est fonctionnelle : le domaine est opérationnel, l’OU contient les trois comptes, GLPI communique avec le contrôleur de domaine en LDAP sur le port 389, la BaseDN est prise en compte et le test retourne 3 entrées. Les comptes se gèrent depuis Active Directory puis s’exploitent dans GLPI, sans recréer chaque utilisateur à la main." }
       ],
-      tags: ["Debian", "GLPI", "LDAP", "Active Directory", "Windows Server", "Proxmox", "B1.1 Patrimoine informatique", "B2.2 Installer et déployer"] },
-    { id: "infra-virtualisee", title: "Infrastructure virtualisée", year: "2026", category: "Virtualisation",
-      summary: "Une infrastructure complète reproduite dans un environnement de test.",
-      context: "Déployer plusieurs machines virtuelles pour reproduire une infrastructure informatique complète en environnement de test.",
-      work: "Création et configuration des machines virtuelles, configuration du réseau et installation des services nécessaires à l’infrastructure.",
-      tags: ["Proxmox", "Machines virtuelles", "Linux", "Windows Server", "B1.1 Patrimoine informatique", "B1.3 Présence en ligne", "B2.2 Installer et déployer"], image: "", link: "" }
+      tags: ["Debian", "GLPI", "LDAP", "Active Directory", "Windows Server", "Proxmox", "B1.1 Patrimoine informatique", "B2.2 Installer et déployer"] }
   ],
   veille: {
     text: "Sujet : cybersécurité et sécurité des infrastructures réseaux et systèmes. Je suis l’actualité des vulnérabilités et des bonnes pratiques à travers les publications officielles, des newsletters spécialisées et des sites dédiés à l’administration systèmes et réseaux.",
     sources: [
       { title: "CERT-FR", source: "Alertes et avis de sécurité", url: "https://www.cert.ssi.gouv.fr/" },
-      { title: "ANSSI", source: "Guides et recommandations", url: "https://cyber.gouv.fr/" },
-      { title: "Article récent à ajouter", source: "Titre, source, date", url: "" }
+      { title: "ANSSI", source: "Guides et recommandations", url: "https://cyber.gouv.fr/" }
     ]
   }
 };

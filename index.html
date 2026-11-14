@@ -13,7 +13,7 @@
 <div id="pre"><span id="pn"></span><b id="pc">0</b></div>
 <div id="bar"></div><div id="cur"></div>
 <nav><div class="wrap"><b id="logo"></b>
-  <div><a href="#apropos">À propos</a><a href="#parcours">Parcours</a><a href="#realisations">Réalisations</a><a href="#competences">Compétences</a><a href="#veille">Veille</a><a href="#contact">Contact</a>
+  <div><a href="#apropos">À propos</a><a href="#parcours">Parcours</a><a href="#realisations">Réalisations</a><a href="#competences">Compétences</a><a href="#certifications">Certifications</a><a href="#veille">Veille</a><a href="#contact">Contact</a>
   <button id="theme" aria-label="Changer de thème">◐</button></div></div></nav>
 <main class="wrap">
   <header class="hero">
@@ -29,6 +29,7 @@
   <section id="parcours"><h2>Parcours</h2><ol class="tl" id="tl"></ol></section>
   <section id="realisations"><h2>Réalisations</h2><div class="filters" id="filters"></div><div class="grid" id="grid"></div></section>
   <section id="competences"><h2>Compétences</h2><div class="sk" id="sk"></div></section>
+  <section id="certifications"><h2>Certifications</h2><div class="certs" id="certs"></div></section>
   <section id="veille"><h2>Veille technologique</h2><div class="vl"><p id="vtext"></p><ul id="vlist"></ul></div></section>
   <section id="contact"><h2>Contact</h2><p class="ct"><a id="mail"></a></p><div class="btns" id="links"></div></section>
 </main>
@@ -37,7 +38,7 @@
 <dialog id="pj" data-lenis-prevent><button class="x" data-close aria-label="Fermer">×</button><div id="pjbody"></div></dialog>
 
 <dialog id="admin" data-lenis-prevent><button class="x" data-close aria-label="Fermer">×</button>
-  <h3>Ajouter un projet</h3>
+  <h3>Administration des projets</h3><h4>Ajouter un projet</h4>
   <form id="form">
     <label>Titre<input name="title" required></label>
     <label>Année<input name="year" value="2026"></label>
@@ -48,10 +49,10 @@
     <label>Compétences / outils (séparés par des virgules)<input name="tags"></label>
     <label>Image (nom de fichier ou URL)<input name="image" placeholder="images/schema.png"></label>
     <label class="full">Lien (documentation, dépôt…)<input name="link" type="url"></label>
-    <div class="full row"><button class="btn p" type="submit">Ajouter</button><button class="btn" type="button" id="export">Télécharger content.js</button></div>
+    <div class="full row"><button class="btn p" type="submit">Ajouter</button><button class="btn" type="button" id="export">Télécharger content.js</button><button class="btn" type="button" id="reset">Annuler mes modifications</button></div>
   </form>
-  <p class="hint">Le projet apparaît tout de suite sur cet appareil. Pour le publier : téléchargez <b>content.js</b>, remplacez l’ancien fichier dans votre dépôt GitHub, et c’est en ligne.</p>
-  <ul id="extras"></ul>
+  <p class="hint">Vos ajouts et suppressions s’affichent tout de suite, mais seulement sur cet appareil. Pour les publier : cliquez sur « Télécharger content.js », remplacez l’ancien fichier dans votre dépôt GitHub, et le site est mis à jour pour tout le monde.</p>
+  <h4>Projets du site</h4><ul id="extras"></ul>
 </dialog>
 
 <dialog id="lb" data-lenis-prevent><button class="x" data-close aria-label="Fermer">×</button><img id="lbimg" alt=""></dialog>

@@ -6,7 +6,10 @@
   const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } };
   const write = v => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} };
   let extra = read(), filter = "Tous";
-  const projects = () => [...extra.filter(e => !P.projects.some(p => p.id === e.id)), ...P.projects];
+  const KEYH = "portfolio-hidden-v1";
+  let hidden = (() => { try { return JSON.parse(localStorage.getItem(KEYH)) || []; } catch { return []; } })();
+  const saveH = () => { try { localStorage.setItem(KEYH, JSON.stringify(hidden)); } catch {} };
+  const projects = () => [...extra.filter(e => !P.projects.some(p => p.id === e.id)), ...P.projects].filter(p => !hidden.includes(p.id));
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Rendu ---------- */
@@ -29,6 +32,12 @@
   $("#foot").textContent = `© ${new Date().getFullYear()} ${pf.first} ${pf.last}, ${pf.role}`;
   $("#tl").innerHTML = P.parcours.map(p => `<li>${p.logo ? `<img class="lg" src="${esc(p.logo)}" alt="Logo ${esc(p.title)}">` : ""}<time>${esc(p.date)}</time><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p></li>`).join("");
   $("#sk").innerHTML = P.skills.map(s => `<div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div>`).join("");
+  $("#certs").innerHTML = (P.certifications || []).map(c => `<article class="cert${c.image ? " big" : ""}">
+    ${c.image ? `<figure data-zoom="${esc(c.image)}" data-cap="${esc(c.title)}"><img src="${esc(c.image)}" alt="Certificat ${esc(c.title)}"></figure>` : ""}
+    <div class="cb"><span class="st${c.status !== "En préparation" ? " ok" : ""}">${esc(c.status)}</span><h3>${esc(c.title)}</h3>
+    <p class="is">${esc(c.issuer)}${c.date ? `, ${esc(c.date)}` : ""}</p>${c.text ? `<p>${esc(c.text)}</p>` : ""}
+    ${c.skills && c.skills.length ? `<ul>${c.skills.map(s => `<li>${esc(s)}</li>`).join("")}</ul>` : ""}
+    ${c.file ? `<a class="btn p" href="${esc(c.file)}" target="_blank" rel="noopener">Voir le document (PDF)</a>` : ""}</div></article>`).join("");
   $("#vtext").textContent = P.veille.text;
   $("#vlist").innerHTML = P.veille.sources.map(s => `<li>${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>` : `<span>${esc(s.title)}</span>`}<small>${esc(s.source)}</small></li>`).join("");
   const words = [...new Set(projects().flatMap(p => p.tags).concat(P.skills.flatMap(s => s.text.split(", "))))].slice(0, 16);
@@ -36,6 +45,7 @@
 
   function renderProjects() {
     const list = projects(), cats = ["Tous", ...new Set(list.map(p => p.category))];
+    if (!cats.includes(filter)) filter = "Tous";
     $("#filters").innerHTML = cats.map(c => `<button class="chip" aria-pressed="${c === filter}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
     $("#cats").innerHTML = cats.slice(1).map(c => `<option value="${esc(c)}">`).join("");
     $("#grid").innerHTML = list.filter(p => filter === "Tous" || p.category === filter).map(p => `
@@ -64,7 +74,10 @@
 
   /* ---------- Mode admin (#admin) ---------- */
   function renderExtras() {
-    $("#extras").innerHTML = extra.map(e => `<li><span>${esc(e.title)}</span><button data-del="${esc(e.id)}">Retirer</button></li>`).join("");
+    const seen = new Set(), all = [...extra, ...P.projects].filter(p => !seen.has(p.id) && seen.add(p.id));
+    $("#extras").innerHTML = all.map(p => hidden.includes(p.id)
+      ? `<li class="off"><span>${esc(p.title)} (supprimé)</span><button data-res="${esc(p.id)}">Restaurer</button></li>`
+      : `<li><span>${esc(p.title)}</span><button data-del="${esc(p.id)}">Supprimer</button></li>`).join("");
   }
   const slug = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   $("#form").addEventListener("submit", e => {
@@ -76,6 +89,7 @@
     write(extra); e.target.reset(); filter = "Tous"; renderProjects();
     $("#admin").close(); $("#realisations").scrollIntoView();
   });
+  $("#reset").addEventListener("click", () => { if (confirm("Annuler tous les ajouts et suppressions faits sur cet appareil ?")) { extra = []; hidden = []; write(extra); saveH(); renderProjects(); } });
   $("#export").addEventListener("click", () => {
     const out = "window.PORTFOLIO = " + JSON.stringify({ ...P, projects: projects() }, null, 2) + ";\n";
     const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(new Blob([out], { type: "text/javascript" })), download: "content.js" });
@@ -93,7 +107,14 @@
     const chip = t.closest(".chip"); if (chip) { filter = chip.dataset.cat; renderProjects(); }
     const fig = t.closest("[data-zoom]"); if (fig) { $("#lbimg").src = fig.dataset.zoom; $("#lbimg").alt = fig.dataset.cap; $("#lb").showModal(); }
     const card = t.closest(".card"); if (card) openProject(card.dataset.id);
-    const del = t.closest("[data-del]"); if (del) { extra = extra.filter(x => x.id !== del.dataset.del); write(extra); renderProjects(); }
+    const del = t.closest("[data-del]");
+    if (del && confirm("Supprimer ce projet du site ?")) {
+      const id = del.dataset.del;
+      if (extra.some(x => x.id === id)) { extra = extra.filter(x => x.id !== id); write(extra); }
+      if (P.projects.some(p => p.id === id)) { hidden.push(id); saveH(); }
+      renderProjects();
+    }
+    const res = t.closest("[data-res]"); if (res) { hidden = hidden.filter(i => i !== res.dataset.res); saveH(); renderProjects(); }
   });
   $("#theme").addEventListener("click", () => {
     const r = document.documentElement, dark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
@@ -134,6 +155,7 @@
     gsap.timeline({ repeat: -1, delay: D + 1.6 + i * .5, repeatDelay: 1.2 + i * .3 }).set(p, { opacity: 1 }).to(p, { attr: { cx: b[0], cy: b[1] - 18 }, duration: 1, ease: "none" }).set(p, { opacity: 0 });
   });
   gsap.utils.toArray(".tl li").forEach(li => gsap.from(li, { opacity: 0, x: -24, duration: .7, ease: "power3.out", scrollTrigger: { trigger: li, start: "top 85%" } }));
+  gsap.from(".cert", { opacity: 0, y: 30, duration: .7, stagger: .12, scrollTrigger: { trigger: "#certs", start: "top 85%" } });
   gsap.from(".sk div", { opacity: 0, y: 30, duration: .7, stagger: .1, scrollTrigger: { trigger: ".sk", start: "top 85%" } });
   gsap.from(".ct", { clipPath: "inset(0 100% 0 0)", duration: 1.1, ease: "power3.inOut", scrollTrigger: { trigger: ".ct", start: "top 85%" } });
   gsap.to("#marq", { skewX: 0, scrollTrigger: { trigger: ".marq", scrub: true } });
