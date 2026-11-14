@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio BTS SIO SISR</title>
+<meta name="description" content="Portfolio d’un étudiant en BTS SIO option SISR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="pre"><span id="pn"></span><b id="pc">0</b></div>
+<div id="bar"></div><div id="cur"></div>
+<nav><div class="wrap"><b id="logo"></b>
+  <div><a href="#apropos">À propos</a><a href="#parcours">Parcours</a><a href="#realisations">Réalisations</a><a href="#competences">Compétences</a><a href="#veille">Veille</a><a href="#contact">Contact</a>
+  <button id="theme" aria-label="Changer de thème">◐</button></div></div></nav>
+<main class="wrap">
+  <header class="hero">
+    <div><p class="pill"><i></i><span id="avail"></span></p><h1 id="name"></h1><p class="lead" id="intro"></p>
+      <div class="btns"><a class="btn p" href="#realisations">Voir mes réalisations</a><a class="btn" href="#contact">Me contacter</a></div></div>
+    <svg class="net" id="net" viewBox="0 0 480 440" role="img" aria-label="Schéma réseau : Internet, pare-feu, switch, trois serveurs"></svg>
+  </header>
+</main>
+<div class="marq" aria-hidden="true"><div id="marq"></div></div>
+<main class="wrap">
+  <section id="apropos"><h2>À propos</h2><p class="stmt" id="stmt"></p>
+    <div class="abt"><div class="ph" id="ph"></div><div><div id="abtxt"></div><ul class="vals" id="vals"></ul><a class="btn p" href="#contact">Parlons de mon alternance</a></div></div></section>
+  <section id="parcours"><h2>Parcours</h2><ol class="tl" id="tl"></ol></section>
+  <section id="realisations"><h2>Réalisations</h2><div class="filters" id="filters"></div><div class="grid" id="grid"></div></section>
+  <section id="competences"><h2>Compétences</h2><div class="sk" id="sk"></div></section>
+  <section id="veille"><h2>Veille technologique</h2><div class="vl"><p id="vtext"></p><ul id="vlist"></ul></div></section>
+  <section id="contact"><h2>Contact</h2><p class="ct"><a id="mail"></a></p><div class="btns" id="links"></div></section>
+</main>
+<footer><div class="wrap"><span id="foot"></span></div></footer>
+
+<dialog id="pj" data-lenis-prevent><button class="x" data-close aria-label="Fermer">×</button><div id="pjbody"></div></dialog>
+
+<dialog id="admin" data-lenis-prevent><button class="x" data-close aria-label="Fermer">×</button>
+  <h3>Ajouter un projet</h3>
+  <form id="form">
+    <label>Titre<input name="title" required></label>
+    <label>Année<input name="year" value="2026"></label>
+    <label>Catégorie<input name="category" list="cats" placeholder="Réseau, Système, Sécurité…" required></label><datalist id="cats"></datalist>
+    <label class="full">Résumé (une phrase)<input name="summary" required></label>
+    <label class="full">Contexte<textarea name="context" rows="2"></textarea></label>
+    <label class="full">Ce que j’ai fait<textarea name="work" rows="3"></textarea></label>
+    <label>Compétences / outils (séparés par des virgules)<input name="tags"></label>
+    <label>Image (nom de fichier ou URL)<input name="image" placeholder="images/schema.png"></label>
+    <label class="full">Lien (documentation, dépôt…)<input name="link" type="url"></label>
+    <div class="full row"><button class="btn p" type="submit">Ajouter</button><button class="btn" type="button" id="export">Télécharger content.js</button></div>
+  </form>
+  <p class="hint">Le projet apparaît tout de suite sur cet appareil. Pour le publier : téléchargez <b>content.js</b>, remplacez l’ancien fichier dans votre dépôt GitHub, et c’est en ligne.</p>
+  <ul id="extras"></ul>
+</dialog>
+
+<dialog id="lb" data-lenis-prevent><button class="x" data-close aria-label="Fermer">×</button><img id="lbimg" alt=""></dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="content.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
