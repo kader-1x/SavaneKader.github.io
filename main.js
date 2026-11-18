@@ -95,6 +95,7 @@
     const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(new Blob([out], { type: "text/javascript" })), download: "content.js" });
     a.click(); URL.revokeObjectURL(a.href);
   });
+  $("#logo").addEventListener("click", e => { if (e.detail === 3) $("#admin").showModal(); });
   const syncAdmin = () => { if (location.hash === "#admin") { $("#admin").showModal(); } };
   addEventListener("hashchange", syncAdmin); syncAdmin();
   $("#admin").addEventListener("close", () => { if (location.hash === "#admin") history.replaceState(null, "", location.pathname); });

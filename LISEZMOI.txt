@@ -6,7 +6,7 @@ MODIFIER LE CONTENU
   Tout est dans content.js (identité, parcours, projets, certifications, veille).
 
 ADMINISTRATION DES PROJETS (ajouter, supprimer, restaurer)
-  1. Ouvrez le site avec #admin à la fin de l’adresse (ex. .../index.html#admin)
+  1. Triple-cliquez sur le logo « K.S. » en haut à gauche, OU ajoutez #admin à la fin de l’adresse (ex. .../index.html#admin)
   2. Ajoutez un projet avec le formulaire, ou cliquez sur « Supprimer » à côté d’un projet.
   3. Les changements s’affichent tout de suite, mais seulement sur votre appareil.
   4. Pour les publier : « Télécharger content.js », remplacez l’ancien fichier, envoyez-le sur GitHub.
